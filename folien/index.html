@@ -1,0 +1,204 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>Behavior Driven Development in Python</title>
+
+		<meta name="description" content="Behavoir Driven Development in Python">
+		<meta name="author" content="Gabriel Jacobsohn">
+
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<link rel="stylesheet" href="css/reveal.min.css">
+		<link rel="stylesheet" href="css/akra.css" id="theme">
+
+		<!-- For syntax highlighting -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- If the query includes 'print-pdf', use the PDF print sheet -->
+		<script>
+			document.write( '<link rel="stylesheet" href="css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+
+	<body>
+
+		<div class="reveal">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides" data-background-transition="slide">
+				<section >
+					<img src="img/akra-logo.gif"/>
+					<h3>Behavior Driven Development <br/>in Python</h3>
+					<p>
+						<small>Created by Gabriel Jacobsohn</small>
+					</p>
+				</section>
+
+				<section data-background-transition="slide">
+					<h2>Behavoir Driven Development</h2>
+					<ul>
+						<li>Dan North, 2003</li> 
+						<li>Weiterentwicklung(keine Ersetzung) von Test Driven Development</li>
+						<li>Beschreibung der Software und ihres Verhaltens aus fachlicher Sicht</li>
+					</ul>
+
+					<aside class="notes">
+                        Kommt aus Agil lässt sich aber auch für nicht Agile Projekte einsetzen.
+					</aside>
+				</section>
+				<section>
+					<h2>Methodik</h2>
+					<ul>
+			                        <li>Keine Tests, sondern Spezifikationen</li>						
+						<li>Outside-in Ansatz</li>
+						<li>Story-Level-Frameworks - Spezifikations-Frameworks</li>
+					</ul>
+					<aside class="notes">
+						Outside-in: Externes wissen mit in die Software holen
+                        möglichst nahe der User "erfahrung"
+                        möglichst weitweck von der &ldquo;abstrakten Programmierersicht&rdquo;
+                        Ob Stories oder Spezifkationen kommt auf die Domain an.
+                        SF: RSpec
+					</aside>			
+				</section>
+
+				<section>
+					<section>
+						<h2>Gherkins</h2>
+						<ul>
+							<li>Ist eine formale Beschreibungssprache.</li>
+							<li>Besteht nur aus wenigen Schlüsselwörtern:
+                                Feature, Scenario, Given, When, Then, And, Outline</li>
+						</ul>
+					</section>
+					<section>
+						<h2>Beispiel</h2>
+
+							<div style="text-align: left;">
+                                <b>Feature:</b> Apfelkorb<br/>
+                                Wir besitzen einen Apfelkorb aus dem wir Äpfel verschenken und verkaufen können<br/>
+                                <br/>
+                                <b>Scenario:</b> Verschenken und verkaufen von &Auml;pfeln<br/>
+                                <b>Given:</b> Ich besitze 5 &Auml;pfel<br/>
+                                <b>When:</b> Ich 3 &Auml;pfel verschenke<br/>
+                                <b>and:</b> Ich 1 Apfel f&uuml;r einen 1 &euro; verkaufe<br/>
+                                <b>Then:</b> Habe ich einen 1 &euro; in der Brieftasche<br/>
+                                <b> and:</b> Ich habe einen Apfel im Apfelkorb<br/>
+                            </div>
+
+					</section>						
+				</section>
+				<section>
+			
+					<section>
+						<h2>Kleines Beispiel Projekt</h2>
+						 <p>Die weltbeste CRM Lösung</p>
+                         <p>Entwickelt mit Django und Lettuce</p>
+					</section>
+                    <section>
+                        <h2>Die Story</h2>
+                        Erstellen eines Customers<br/>
+                    </section>
+                    <section>
+                            <h2>Das Scribble: Kunden auflistung</h2>
+                            <img src="img/customer_list.png" border="2" />
+                    </section>
+                    <section>
+                            <h2>Das Scribble: Kunden erstellen</h2>
+                            <img src="img/create_user.png" border="2" />
+
+                    </section>
+                    <section>
+                        <h2>Create a customer</h2>
+                        <div style="text-align: left;">
+                        <b>Feature:</b> Creation of an Customer<br/>
+                        Any user should be able of creating a Customer<br/>
+                        <br/>
+                        <b>Scenario:</b> Creation of a Customer without any trouble<br/>
+                        <br/>
+                        <b>Given:</b> I'm in the Customer section<br/>
+                        <br/>
+                        <b>When:</b> I click on "new_customer"<br/>
+                        <b>and:</b> I write "Barney" in "id_first_name"<br/>
+                        <b>and:</b> I write "Stinson" in "id_last_name"<br/>
+                        <b>and:</b> I submit the form "customer_form"<br/>
+<br/>
+         <b>Then:</b> the table "customer_list" should be:<br/>
+              | CustomerID | Name              |<br/>
+              | 1          | Barney Stinson    |<br/>
+                        </div>
+                    </section>
+                    <section>
+			            <h2>Create a customer 2</h2>
+                        <div style="text-align: left;">
+			            ...<br/>
+                        <br/>
+                        <b>Scenario:</b> Try to create a user without the mandatory fields<br/>
+                        <br/>
+                        <b>Given:</b> I'm in the Customer section<br/>
+                        <br/>
+                        <b>When:</b> I click on "new_customer"<br/>
+                        <b>and:</b> I write "" in "id_first_name"<br/>
+                        <b>and:</b> I write "" in "id_last_name"<br/>
+                        <b>and:</b> I submit the form "customer_form"<br/>
+                        <br/>
+                        <b>Then:</b> I expect to see the message "This field is required"<br/>
+                        </div>
+                    </section>
+		            <section>
+                        <h1>JETZT ab in den Code!</h1>
+		            </section>
+                </section>
+				<section>
+                    <h1>Vielen Dank</h1>
+				</section>
+
+			</div>
+
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.min.js"></script>
+
+		<script>
+
+			// Full list of configuration options available here:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+                
+				theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+				transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+
+				// Parallax scrolling
+				// parallaxBackgroundImage: 'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg',
+				// parallaxBackgroundSize: '2100px 900px',
+
+				// Optional libraries used to extend on reveal.js
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+					{ src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+				]
+			});
+
+		</script>
+
+	</body>
+</html>
