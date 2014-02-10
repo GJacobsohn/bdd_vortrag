@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+
+{% block section_menu %}
+    <a id="new_customer" href="{%  url 'customer:new_customer'  %}" >New Customer</a>
+{% endblock %}
+
+
+{% block content %}
+    <table class="table" id="customer_list">
+        <thead>
+            <tr>
+                <th>CustomerID</th>
+                <th>Name</th>
+            </tr>
+        </thead>
+
+        {% for customer in all_customers %}
+        <tr>
+            <td><a href="{% url 'customer:edit_customer' customer.id %}">{{ customer.id }}</a></td>
+            <td>{{ customer.full_name }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+{% endblock %}
